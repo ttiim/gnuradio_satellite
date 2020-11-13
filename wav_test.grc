@@ -41,9 +41,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [601, 850]
+    coordinate: [815, 866]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: baud_rate
   id: variable
   parameters:
@@ -67,7 +67,7 @@ blocks:
     bus_structure: null
     coordinate: [50, 775]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: samp_rate_48k
   id: variable
   parameters:
@@ -134,7 +134,7 @@ blocks:
     bus_structure: null
     coordinate: [642, 776]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: analog_quadrature_demod_cf_0
   id: analog_quadrature_demod_cf
   parameters:
@@ -200,7 +200,7 @@ blocks:
     bus_structure: null
     coordinate: [992, 991]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: blocks_tcp_server_sink_0
   id: blocks_tcp_server_sink
   parameters:
@@ -261,7 +261,7 @@ blocks:
     affinity: ''
     alias: ''
     comment: ''
-    file: /home/t-wrig/Desktop/ORCASAT_ALEASAT/Recordings/Correct test Cases/Ranging_openlst/SDRSharp_default_ranging_hello_436800000Hz_IQ.wav
+    file: /home/t-wrig/Desktop/future ALEASAT/recordings/SDRSharp_20201001_TYPE1_5_PACKETS_436800000Hz_IQ.wav
     maxoutbuf: '0'
     minoutbuf: '0'
     nchan: '2'
@@ -287,7 +287,7 @@ blocks:
     bus_structure: null
     coordinate: [439, 729]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: digital_clock_recovery_mm_xx_0
   id: digital_clock_recovery_mm_xx
   parameters:
@@ -316,42 +316,13 @@ blocks:
     bus_structure: null
     coordinate: [163, 691]
     rotation: 0
-    state: enabled
-- name: digital_clock_recovery_mm_xx_0_0
-  id: digital_clock_recovery_mm_xx
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: 'block seems to be working
-
-      use deframer after
-
-
-      cannot be " square " -> watch out for saturation +-1
-
-
-      gain omega: 0.25*gain_mu*gain_mu'
-    gain_mu: '0.175'
-    gain_omega: '0.00765625'
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    mu: '0.5'
-    omega: samples_per_symbol
-    omega_relative_limit: '0.005'
-    type: float
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [51, 916]
-    rotation: 0
     state: disabled
 - name: freq_xlating_fft_filter_ccc_0
   id: freq_xlating_fft_filter_ccc
   parameters:
     affinity: ''
     alias: ''
-    center_freq: 0.206e6-3300
+    center_freq: 0.206e6-5500-2210
     comment: 'move rf to baseband, lpf, decimate
 
 
@@ -359,7 +330,11 @@ blocks:
 
 
 
-      -2360 fec'
+      -2360 fec
+
+
+
+      0.206e6-3300 case1'
     decim: '40'
     maxoutbuf: '0'
     minoutbuf: '0'
@@ -398,6 +373,21 @@ blocks:
     coordinate: [141, 253]
     rotation: 0
     state: enabled
+- name: pn9_scrambler_0
+  id: pn9_scrambler
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [997, 702]
+    rotation: 0
+    state: disabled
 - name: qtgui_freq_sink_x_0_0
   id: qtgui_freq_sink_x
   parameters:
@@ -652,7 +642,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [926, 437]
+    coordinate: [927, 437]
     rotation: 0
     state: enabled
 - name: qtgui_time_sink_x_1
@@ -751,7 +741,7 @@ blocks:
     bus_structure: null
     coordinate: [485, 613]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: rational_resampler_xxx_0
   id: rational_resampler_xxx
   parameters:
@@ -772,6 +762,37 @@ blocks:
     coordinate: [537, 425]
     rotation: 0
     state: enabled
+- name: satellites_cc11xx_packet_crop_0
+  id: satellites_cc11xx_packet_crop
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    use_crc16: 'False'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1099, 634]
+    rotation: 0
+    state: disabled
+- name: satellites_cc11xx_remove_length_0
+  id: satellites_cc11xx_remove_length
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [610, 909]
+    rotation: 0
+    state: disabled
 - name: satellites_print_timestamp_0
   id: satellites_print_timestamp
   parameters:
@@ -788,7 +809,7 @@ blocks:
     bus_structure: null
     coordinate: [674, 967]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: sync_to_pdu_packed_0
   id: sync_to_pdu_packed
   parameters:
@@ -806,7 +827,7 @@ blocks:
     bus_structure: null
     coordinate: [736, 701]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: zeromq_pub_msg_sink_0
   id: zeromq_pub_msg_sink
   parameters:
@@ -839,11 +860,14 @@ connections:
 - [freq_xlating_fft_filter_ccc_0, '0', qtgui_freq_sink_x_0_0, '0']
 - [low_pass_filter_0, '0', analog_quadrature_demod_cf_0, '0']
 - [low_pass_filter_0, '0', qtgui_freq_sink_x_0_0_0, '0']
+- [pn9_scrambler_0, out, satellites_cc11xx_packet_crop_0, in]
 - [rational_resampler_xxx_0, '0', blocks_wavfile_sink_0, '0']
 - [rational_resampler_xxx_0, '0', digital_clock_recovery_mm_xx_0, '0']
 - [rational_resampler_xxx_0, '0', qtgui_time_sink_x_0, '0']
+- [satellites_cc11xx_packet_crop_0, out, satellites_cc11xx_remove_length_0, in]
+- [satellites_cc11xx_remove_length_0, out, satellites_print_timestamp_0, in]
 - [satellites_print_timestamp_0, out, blocks_message_debug_0, print_pdu]
-- [sync_to_pdu_packed_0, out, satellites_print_timestamp_0, in]
+- [sync_to_pdu_packed_0, out, pn9_scrambler_0, in]
 - [sync_to_pdu_packed_0, out, zeromq_pub_msg_sink_0, in]
 
 metadata:
