@@ -1,0 +1,33 @@
+#Author: Michael Lin
+#Co-authour: Tim Wriglesworth
+
+#Test RX program
+
+#radio_terminal --rx-socket "tcp://127.0.0.1:55555" --tx-socket "tcp://127.0.0.1:44444" --hwid 0102 --raw
+
+
+#!/usr/bin/env python
+import zmq
+import time
+path = "tcp://127.0.0.1:55555"
+context = zmq.Context()
+socket = context.socket(zmq.PUB)
+socket.bind(path)
+print("socket bind success")
+while True:
+    in_str = input()
+    print("send", in_str)
+    socket.send(in_str)		#send data to radio_terminal program 
+
+
+
+# #replacement of the following
+# context = zmq.Context()
+# socket = context.socket(zmq.SUB)
+# socket.connect("tcp://127.0.0.2:5559")   
+# socket.setsockopt_string(zmq.SUBSCRIBE, '')
+# print("running..")
+
+# while True:
+# 	string = socket.recv()
+# 	print(f"Received: {string}")
