@@ -1,0 +1,741 @@
+options:
+  parameters:
+    author: Daniel Estevez, Timothy Wriglesworth
+    category: Custom
+    cmake_opt: ''
+    comment: ''
+    copyright: ''
+    description: Reaktor Hello World decoder
+    gen_cmake: 'On'
+    gen_linking: dynamic
+    generate_options: qt_gui
+    hier_block_src_path: '.:'
+    id: openlst_satellite
+    max_nouts: '0'
+    output_language: python
+    placement: (0,0)
+    qt_qss_theme: ''
+    realtime_scheduling: ''
+    run: 'True'
+    run_command: '{python} -u {filename}'
+    run_options: prompt
+    sizing_mode: fixed
+    thread_safe_setters: ''
+    title: Reaktor Hello World decoder
+    window_size: (1280, 1024)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 8]
+    rotation: 0
+    state: enabled
+
+blocks:
+- name: access_code
+  id: variable
+  parameters:
+    comment: ''
+    value: '"11010011100100011101001110010001"'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [536, 15]
+    rotation: 0
+    state: enabled
+- name: gain_mu
+  id: variable
+  parameters:
+    comment: ''
+    value: 0.175*3
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [840, 19]
+    rotation: 0
+    state: enabled
+- name: preamble
+  id: variable
+  parameters:
+    comment: ''
+    value: '"1010101010101010"'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [506, 83]
+    rotation: 0
+    state: enabled
+- name: samp_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: '48000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [936, 21]
+    rotation: 0
+    state: enabled
+- name: threshold
+  id: variable
+  parameters:
+    comment: ''
+    value: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [738, 14]
+    rotation: 0
+    state: enabled
+- name: blocks_file_sink_0
+  id: blocks_file_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    append: 'False'
+    comment: ''
+    file: /home/ethan/prepdu
+    type: byte
+    unbuffered: 'False'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1191, 669]
+    rotation: 0
+    state: true
+- name: blocks_message_debug_0
+  id: blocks_message_debug
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [983, 823]
+    rotation: 0
+    state: enabled
+- name: blocks_multiply_const_vxx_0
+  id: blocks_multiply_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    const: invert
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [659, 258]
+    rotation: 0
+    state: enabled
+- name: blocks_pdu_to_tagged_stream_0_1
+  id: blocks_pdu_to_tagged_stream
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    tag: packet_len
+    type: byte
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [941, 686]
+    rotation: 0
+    state: enabled
+- name: blocks_throttle_0_0
+  id: blocks_throttle
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    ignoretag: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samples_per_second: samp_rate
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [443, 218]
+    rotation: 0
+    state: enabled
+- name: blocks_udp_source_0
+  id: blocks_udp_source
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    eof: 'False'
+    ipaddr: 127.0.0.1
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    port: port
+    psize: '1472'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [186, 194]
+    rotation: 0
+    state: disabled
+- name: blocks_wavfile_source_0
+  id: blocks_wavfile_source
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: make sure it's 48khz, or it won't work well on decode
+    file: /home/ethan/install/imit_tim/whitened_GFSK.wav
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    nchan: '1'
+    repeat: 'True'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [186, 116]
+    rotation: 0
+    state: true
+- name: digital_binary_slicer_fb_0
+  id: digital_binary_slicer_fb
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [301, 466]
+    rotation: 0
+    state: enabled
+- name: digital_clock_recovery_mm_xx_0
+  id: digital_clock_recovery_mm_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: 'block seems to be working
+
+      use deframer after'
+    gain_mu: gain_mu
+    gain_omega: 0.25*gain_mu*gain_mu
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    mu: '0.5'
+    omega: '5'
+    omega_relative_limit: '0.005'
+    type: float
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [45, 430]
+    rotation: 0
+    state: enabled
+- name: invert
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: invert the waveform (-1 to invert)
+    short_id: i
+    type: intx
+    value: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 128]
+    rotation: 0
+    state: enabled
+- name: ip
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: UDP listen IP
+    short_id: ''
+    type: str
+    value: 127.0.0.1
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [248, 15]
+    rotation: 0
+    state: enabled
+- name: low_pass_filter_0
+  id: low_pass_filter
+  parameters:
+    affinity: ''
+    alias: ''
+    beta: '6.76'
+    comment: ''
+    cutoff_freq: '8000'
+    decim: '1'
+    gain: '1'
+    interp: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samp_rate: '48000'
+    type: fir_filter_fff
+    width: '600'
+    win: firdes.WIN_HAMMING
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [885, 210]
+    rotation: 0
+    state: enabled
+- name: note_0
+  id: note
+  parameters:
+    alias: ''
+    comment: ''
+    note: 9k6
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [12, 251]
+    rotation: 0
+    state: enabled
+- name: pduadd_pdu_head_tail_0
+  id: pduadd_pdu_head_tail
+  parameters:
+    add: preamble
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [535, 542]
+    rotation: 0
+    state: true
+- name: port
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: UDP port
+    short_id: ''
+    type: intx
+    value: '7355'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [392, 15]
+    rotation: 0
+    state: enabled
+- name: qtgui_time_sink_x_0
+  id: qtgui_time_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    axislabels: 'True'
+    color1: blue
+    color10: dark blue
+    color2: red
+    color3: green
+    color4: black
+    color5: cyan
+    color6: magenta
+    color7: yellow
+    color8: dark red
+    color9: dark green
+    comment: ''
+    ctrlpanel: 'True'
+    entags: 'True'
+    grid: 'False'
+    gui_hint: ''
+    label1: Signal 1
+    label10: Signal 10
+    label2: Signal 2
+    label3: Signal 3
+    label4: Signal 4
+    label5: Signal 5
+    label6: Signal 6
+    label7: Signal 7
+    label8: Signal 8
+    label9: Signal 9
+    legend: 'True'
+    marker1: '-1'
+    marker10: '-1'
+    marker2: '-1'
+    marker3: '-1'
+    marker4: '-1'
+    marker5: '-1'
+    marker6: '-1'
+    marker7: '-1'
+    marker8: '-1'
+    marker9: '-1'
+    name: '""'
+    nconnections: '1'
+    size: '30000'
+    srate: '48000'
+    stemplot: 'False'
+    style1: '1'
+    style10: '1'
+    style2: '1'
+    style3: '1'
+    style4: '1'
+    style5: '1'
+    style6: '1'
+    style7: '1'
+    style8: '1'
+    style9: '1'
+    tr_chan: '0'
+    tr_delay: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_slope: qtgui.TRIG_SLOPE_POS
+    tr_tag: '""'
+    type: float
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    ylabel: Amplitude
+    ymax: '1'
+    ymin: '-1'
+    yunit: '""'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [656, 151]
+    rotation: 0
+    state: enabled
+- name: qtgui_time_sink_x_1
+  id: qtgui_time_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    axislabels: 'True'
+    color1: blue
+    color10: dark blue
+    color2: red
+    color3: green
+    color4: black
+    color5: cyan
+    color6: magenta
+    color7: yellow
+    color8: dark red
+    color9: dark green
+    comment: ''
+    ctrlpanel: 'True'
+    entags: 'True'
+    grid: 'False'
+    gui_hint: ''
+    label1: Signal 1
+    label10: Signal 10
+    label2: Signal 2
+    label3: Signal 3
+    label4: Signal 4
+    label5: Signal 5
+    label6: Signal 6
+    label7: Signal 7
+    label8: Signal 8
+    label9: Signal 9
+    legend: 'True'
+    marker1: '0'
+    marker10: '-1'
+    marker2: '-1'
+    marker3: '-1'
+    marker4: '-1'
+    marker5: '-1'
+    marker6: '-1'
+    marker7: '-1'
+    marker8: '-1'
+    marker9: '-1'
+    name: dots
+    nconnections: '1'
+    size: '3000'
+    srate: '9600'
+    stemplot: 'False'
+    style1: '0'
+    style10: '1'
+    style2: '1'
+    style3: '1'
+    style4: '1'
+    style5: '1'
+    style6: '1'
+    style7: '1'
+    style8: '1'
+    style9: '1'
+    tr_chan: '0'
+    tr_delay: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_slope: qtgui.TRIG_SLOPE_POS
+    tr_tag: '""'
+    type: float
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    ylabel: Amplitude
+    ymax: '3'
+    ymin: '-3'
+    yunit: '""'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [294, 534]
+    rotation: 0
+    state: enabled
+- name: satellites_cc11xx_packet_crop_0
+  id: satellites_cc11xx_packet_crop
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: packet crop block reads the length field and crops the packet to the
+      correct size.
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    use_crc16: 'True'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [985, 462]
+    rotation: 0
+    state: enabled
+- name: satellites_check_cc11xx_crc_0
+  id: satellites_check_cc11xx_crc
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    verbose: 'True'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1222, 451]
+    rotation: 0
+    state: disabled
+- name: satellites_pdu_head_tail_0
+  id: satellites_pdu_head_tail
+  parameters:
+    add: ''
+    affinity: ''
+    alias: ''
+    comment: 'Head: increasing Number allows more packets from head to pass
+
+      Head-: increasing Number cuts more packets from the tail
+
+      Tail: increasing Number allows more packets from tail to pass
+
+      Tail-: increasing Number cuts more packets from the head'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    mode: '1'
+    num: '3'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [435, 680]
+    rotation: 0
+    state: true
+- name: satellites_pdu_head_tail_1
+  id: satellites_pdu_head_tail
+  parameters:
+    add: ''
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    mode: '3'
+    num: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [244, 680]
+    rotation: 0
+    state: true
+- name: satellites_pdu_head_tail_1_0
+  id: satellites_pdu_head_tail
+  parameters:
+    add: ''
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    mode: '4'
+    num: preamble
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [522, 598]
+    rotation: 0
+    state: disabled
+- name: satellites_pn9_scrambler_0
+  id: satellites_pn9_scrambler
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [781, 466]
+    rotation: 0
+    state: enabled
+- name: satellites_print_timestamp_0
+  id: satellites_print_timestamp
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    count: 'True'
+    fmt: '%Y-%m-%d %H:%M:%S'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [622, 680]
+    rotation: 0
+    state: enabled
+- name: satellites_sync_to_pdu_packed_0
+  id: satellites_sync_to_pdu_packed
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    packlen: '255'
+    sync: access_code
+    threshold: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [486, 446]
+    rotation: 0
+    state: true
+- name: zeromq_pub_msg_sink_0
+  id: zeromq_pub_msg_sink
+  parameters:
+    address: tcp://127.0.0.2:5559
+    affinity: ''
+    alias: ''
+    bind: ''
+    comment: ''
+    timeout: '100'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [943, 749]
+    rotation: 0
+    state: enabled
+
+connections:
+- [blocks_multiply_const_vxx_0, '0', low_pass_filter_0, '0']
+- [blocks_pdu_to_tagged_stream_0_1, '0', blocks_file_sink_0, '0']
+- [blocks_throttle_0_0, '0', blocks_multiply_const_vxx_0, '0']
+- [blocks_throttle_0_0, '0', qtgui_time_sink_x_0, '0']
+- [blocks_udp_source_0, '0', blocks_throttle_0_0, '0']
+- [blocks_wavfile_source_0, '0', blocks_throttle_0_0, '0']
+- [digital_binary_slicer_fb_0, '0', satellites_sync_to_pdu_packed_0, '0']
+- [digital_clock_recovery_mm_xx_0, '0', digital_binary_slicer_fb_0, '0']
+- [digital_clock_recovery_mm_xx_0, '0', qtgui_time_sink_x_1, '0']
+- [low_pass_filter_0, '0', digital_clock_recovery_mm_xx_0, '0']
+- [pduadd_pdu_head_tail_0, out, satellites_print_timestamp_0, in]
+- [satellites_cc11xx_packet_crop_0, out, satellites_check_cc11xx_crc_0, in]
+- [satellites_cc11xx_packet_crop_0, out, satellites_pdu_head_tail_1, in]
+- [satellites_check_cc11xx_crc_0, ok, satellites_pdu_head_tail_1, in]
+- [satellites_pdu_head_tail_0, out, pduadd_pdu_head_tail_0, in]
+- [satellites_pdu_head_tail_0, out, satellites_pdu_head_tail_1_0, in]
+- [satellites_pdu_head_tail_1, out, satellites_pdu_head_tail_0, in]
+- [satellites_pdu_head_tail_1_0, out, satellites_print_timestamp_0, in]
+- [satellites_pn9_scrambler_0, out, satellites_cc11xx_packet_crop_0, in]
+- [satellites_print_timestamp_0, out, blocks_message_debug_0, print_pdu]
+- [satellites_print_timestamp_0, out, blocks_pdu_to_tagged_stream_0_1, pdus]
+- [satellites_print_timestamp_0, out, zeromq_pub_msg_sink_0, in]
+- [satellites_sync_to_pdu_packed_0, out, satellites_pn9_scrambler_0, in]
+
+metadata:
+  file_format: 1
