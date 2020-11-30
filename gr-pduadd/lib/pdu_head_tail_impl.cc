@@ -32,11 +32,9 @@
 namespace gr {
   namespace pduadd {
 
-    pdu_head_tail::sptr
-    pdu_head_tail::make(std::string add)
+    pdu_head_tail::sptr pdu_head_tail::make(std::string add)
     {
-      return gnuradio::get_initial_sptr
-        (new pdu_head_tail_impl(add));
+      return gnuradio::get_initial_sptr(new pdu_head_tail_impl(add));
     }
 
 
@@ -47,7 +45,7 @@ namespace gr {
       : gr::block("pdu_head_tail",
               gr::io_signature::make(0, 0, 0),
               gr::io_signature::make(0, 0, 0)),
-              d_add(add)
+        d_add(add)
     {
     message_port_register_out(pmt::mp("out"));
     message_port_register_in(pmt::mp("in"));
@@ -57,21 +55,16 @@ namespace gr {
     /*
      * Our virtual destructor.
      */
-    pdu_head_tail_impl::~pdu_head_tail_impl()
-    {
-    }
+    pdu_head_tail_impl::~pdu_head_tail_impl() {}
 
     void
-    pdu_head_tail_impl::forecast (int noutput_items, gr_vector_int &ninput_items_required)
-    {
-      /* <+forecast+> e.g. ninput_items_required[0] = noutput_items */
-    }
+    pdu_head_tail_impl::forecast (int noutput_items, gr_vector_int &ninput_items_required) {}
 
     int
     pdu_head_tail_impl::general_work (int noutput_items,
-                       gr_vector_int &ninput_items,
-                       gr_vector_const_void_star &input_items,
-                       gr_vector_void_star &output_items)
+                       		gr_vector_int &ninput_items,
+                       		gr_vector_const_void_star &input_items,
+                       		gr_vector_void_star &output_items)
     {
       return 0;
     }
@@ -79,18 +72,18 @@ namespace gr {
     void pdu_head_tail_impl::msg_handler(pmt::pmt_t pmt_msg)
     {
     std::vector<uint8_t> msg = pmt::u8vector_elements(pmt::cdr(pmt_msg));
-    std::vector<uint8_t> cut_msg;
-    cut_msg = std::vector<uint8_t>(msg.begin(), msg.end());
-    while(d_add.length()){
-    	std::string temp_add = d_add.substr(d_add.length()-8, 8);
-    	d_add.erase(d_add.length()-8, d_add.length());
+    std::vector<uint8_t> cut_msg = std::vector<uint8_t>(msg.begin(), msg.end());
+    auto add = d_add;
+    
+    while(add.length()){
+    	std::string temp_add = add.substr(add.length()-8, 8);
+    	add.erase(add.length()-8, add.length());
     	int int_add = std::stoi(temp_add);
     	int dec_value = 0;
     	int base = 1;
-    	int temp = int_add;
-    	while (temp) {
-   		int last_digit = temp % 10;
-        	temp = temp / 10;
+    	while (int_add) {
+   		int last_digit = int_add % 10;
+        	int_add = int_add / 10;
         	dec_value += last_digit * base;
         	base = base * 2;
     	}
