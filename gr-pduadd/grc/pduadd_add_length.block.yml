@@ -1,21 +1,16 @@
-id: pduadd_pdu_head_tail
-label: Add to PDU
+id: pduadd_add_length
+label: Add length
 category: '[pduadd]'
 
 templates:
   imports: import pduadd
-  make: pduadd.pdu_head_tail(${add})
+  make: pduadd.add_length()
 
 #  Make one 'parameters' list entry for every parameter you want settable from the GUI.
 #     Keys include:
 #     * id (makes the value accessible as \$keyname, e.g. in the make entry)
 #     * label (label shown in the GUI)
 #     * dtype (e.g. int, float, complex, byte, short, xxx_vector, ...)
-parameters:
-- id: add
-  label: add
-  dtype: string
-  default: ""
 
 #  Make one 'inputs' list entry per input and one 'outputs' list entry per output.
 #  Keys include:

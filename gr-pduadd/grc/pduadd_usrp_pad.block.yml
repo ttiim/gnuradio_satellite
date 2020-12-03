@@ -1,10 +1,10 @@
-id: pduadd_pdu_head_tail
-label: Add to PDU
+id: pduadd_usrp_pad
+label: USRP pad
 category: '[pduadd]'
 
 templates:
   imports: import pduadd
-  make: pduadd.pdu_head_tail(${add})
+  make: pduadd.usrp_pad(${samples_per_symbol}, ${bits_per_symbol})
 
 #  Make one 'parameters' list entry for every parameter you want settable from the GUI.
 #     Keys include:
@@ -12,10 +12,14 @@ templates:
 #     * label (label shown in the GUI)
 #     * dtype (e.g. int, float, complex, byte, short, xxx_vector, ...)
 parameters:
-- id: add
-  label: add
-  dtype: string
-  default: ""
+- id: samples_per_symbol
+  label: Samples per symbol
+  dtype: int
+  default: 100
+- id: bits_per_symbol
+  label: Bits per symbol
+  dtype: int
+  default: 1
 
 #  Make one 'inputs' list entry per input and one 'outputs' list entry per output.
 #  Keys include:

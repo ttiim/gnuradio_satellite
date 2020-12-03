@@ -17,7 +17,9 @@
 # along with GNU Radio; see the file COPYING.  If not, write to
 # the Free Software Foundation, Inc., 51 Franklin Street,
 # Boston, MA 02110-1301, USA.
-
 install(FILES
-    pduadd_pdu_head_tail.block.yml DESTINATION share/gnuradio/grc/blocks
+    pduadd_pdu_head_tail.block.yml
+    pduadd_crc16.block.yml
+    pduadd_add_length.block.yml
+    pduadd_usrp_pad.block.yml DESTINATION share/gnuradio/grc/blocks
 )
