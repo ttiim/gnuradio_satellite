@@ -22,9 +22,11 @@
 # Setup library
 ########################################################################
 include(GrPlatform) #define LIB_SUFFIX
-
 list(APPEND pduadd_sources
     pdu_head_tail_impl.cc
+    crc16_impl.cc
+    add_length_impl.cc
+    usrp_pad_impl.cc
 )
 
 set(pduadd_sources "${pduadd_sources}" PARENT_SCOPE)
