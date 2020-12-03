@@ -23,5 +23,8 @@
 ########################################################################
 install(FILES
     api.h
-    pdu_head_tail.h DESTINATION include/pduadd
+    pdu_head_tail.h
+    crc16.h
+    add_length.h
+    usrp_pad.h DESTINATION include/pduadd
 )

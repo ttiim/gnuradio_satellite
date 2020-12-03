@@ -41,7 +41,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [801, 104]
+    coordinate: [536, 15]
     rotation: 0
     state: enabled
 - name: gain_mu
@@ -53,7 +53,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [488, 10]
+    coordinate: [840, 19]
     rotation: 0
     state: enabled
 - name: preamble
@@ -65,7 +65,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1053, 107]
+    coordinate: [506, 83]
     rotation: 0
     state: enabled
 - name: samp_rate
@@ -77,7 +77,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [576, 10]
+    coordinate: [936, 21]
     rotation: 0
     state: enabled
 - name: threshold
@@ -89,7 +89,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [400, 10]
+    coordinate: [738, 14]
     rotation: 0
     state: enabled
 - name: blocks_file_sink_0
@@ -107,7 +107,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1747, 680]
+    coordinate: [1191, 669]
     rotation: 0
     state: true
 - name: blocks_message_debug_0
@@ -120,7 +120,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1524, 833]
+    coordinate: [983, 823]
     rotation: 0
     state: enabled
 - name: blocks_multiply_const_vxx_0
@@ -155,7 +155,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1482, 696]
+    coordinate: [941, 686]
     rotation: 0
     state: enabled
 - name: blocks_throttle_0_0
@@ -285,7 +285,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [177, 9]
+    coordinate: [248, 15]
     rotation: 0
     state: enabled
 - name: low_pass_filter_0
@@ -338,25 +338,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [911, 696]
+    coordinate: [535, 542]
     rotation: 0
-    state: enabled
-- name: pduadd_pdu_head_tail_0_0
-  id: pduadd_pdu_head_tail
-  parameters:
-    add: access_code
-    affinity: ''
-    alias: ''
-    comment: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [628, 696]
-    rotation: 0
-    state: enabled
+    state: true
 - name: port
   id: parameter
   parameters:
@@ -371,7 +355,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [297, 10]
+    coordinate: [392, 15]
     rotation: 0
     state: enabled
 - name: qtgui_time_sink_x_0
@@ -643,6 +627,24 @@ blocks:
     coordinate: [244, 680]
     rotation: 0
     state: true
+- name: satellites_pdu_head_tail_1_0
+  id: satellites_pdu_head_tail
+  parameters:
+    add: ''
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    mode: '4'
+    num: preamble
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [522, 598]
+    rotation: 0
+    state: disabled
 - name: satellites_pn9_scrambler_0
   id: satellites_pn9_scrambler
   parameters:
@@ -672,7 +674,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1164, 688]
+    coordinate: [622, 680]
     rotation: 0
     state: enabled
 - name: satellites_sync_to_pdu_packed_0
@@ -706,7 +708,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1484, 759]
+    coordinate: [943, 749]
     rotation: 0
     state: enabled
 
@@ -722,12 +724,13 @@ connections:
 - [digital_clock_recovery_mm_xx_0, '0', qtgui_time_sink_x_1, '0']
 - [low_pass_filter_0, '0', digital_clock_recovery_mm_xx_0, '0']
 - [pduadd_pdu_head_tail_0, out, satellites_print_timestamp_0, in]
-- [pduadd_pdu_head_tail_0_0, out, pduadd_pdu_head_tail_0, in]
 - [satellites_cc11xx_packet_crop_0, out, satellites_check_cc11xx_crc_0, in]
 - [satellites_cc11xx_packet_crop_0, out, satellites_pdu_head_tail_1, in]
 - [satellites_check_cc11xx_crc_0, ok, satellites_pdu_head_tail_1, in]
-- [satellites_pdu_head_tail_0, out, pduadd_pdu_head_tail_0_0, in]
+- [satellites_pdu_head_tail_0, out, pduadd_pdu_head_tail_0, in]
+- [satellites_pdu_head_tail_0, out, satellites_pdu_head_tail_1_0, in]
 - [satellites_pdu_head_tail_1, out, satellites_pdu_head_tail_0, in]
+- [satellites_pdu_head_tail_1_0, out, satellites_print_timestamp_0, in]
 - [satellites_pn9_scrambler_0, out, satellites_cc11xx_packet_crop_0, in]
 - [satellites_print_timestamp_0, out, blocks_message_debug_0, print_pdu]
 - [satellites_print_timestamp_0, out, blocks_pdu_to_tagged_stream_0_1, pdus]
