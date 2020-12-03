@@ -70,14 +70,14 @@ namespace gr {
     
     uint16_t culCalcCRC(unsigned char crcData, uint16_t crcReg) {
         uint8_t i;
-        for (i = 0; i < 8; i++) {
-            if (((crcReg & 0x8000) >> 8) ^ (crcData & 0x80))
-                crcReg = (crcReg << 1) ^ 0x8005;
-            else
-                crcReg = (crcReg << 1);
-            crcData <<= 1;
+    for (i = 0; i < 8; i++) {
+        if (((crcReg & 0x8000) >> 8) ^ (crcData & 0x80))
+            crcReg = (crcReg << 1) ^ 0x8005;
+        else
+            crcReg = (crcReg << 1);
+        crcData <<= 1;
         }
-        return crcReg;
+    return crcReg;
     }
     
     void crc16_impl::msg_handler(pmt::pmt_t pmt_msg)
@@ -89,7 +89,8 @@ namespace gr {
     checksum = 0xFFFF; // Init value for CRC calculation
     for (i = 0; i < cut_msg.size(); i++)
         checksum = culCalcCRC(cut_msg[i], checksum);
-    cut_msg.push_back(checksum);
+    for (int i = sizeof(checksum)-1; i >= 0; i--)
+        cut_msg.push_back((checksum >> i*8) & 0xff);
     
     message_port_pub(
         pmt::mp("out"),
@@ -99,3 +100,34 @@ namespace gr {
   } /* namespace pduadd */
 } /* namespace gr */
 
+/*
+// Example program
+#include <iostream>
+#include <string>
+
+uint16_t culCalcCRC(unsigned char crcData, uint16_t crcReg) {
+uint8_t i;
+for (i = 0; i < 8; i++) {
+    if (((crcReg & 0x8000) >> 8) ^ (crcData & 0x80))
+        crcReg = (crcReg << 1) ^ 0x8005;
+    else
+        crcReg = (crcReg << 1);
+    crcData <<= 1;
+    }
+return crcReg;
+}
+
+int main()
+{
+// culCalcCRC
+//----------------------------------------------------------------
+// Example of Usage
+uint8_t txBuffer[] = {0x0b, 0x48, 0x65, 0x6c, 0x6c, 0x6f, 0x5f, 0x57, 0x6f, 0x72, 0x6c, 0x64};
+uint16_t checksum;
+uint8_t i;
+checksum = 0xFFFF; // Init value for CRC calculation
+for (i = 0; i < sizeof(txBuffer); i++)
+    checksum = culCalcCRC(txBuffer[i], checksum);
+std::cout << std::hex << checksum;
+}
+*/
