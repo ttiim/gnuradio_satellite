@@ -105,7 +105,7 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: '20'
+    value: '5'
   states:
     bus_sink: false
     bus_source: false
@@ -322,7 +322,7 @@ blocks:
     bus_structure: null
     coordinate: [704, 91]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: blocks_message_debug_0_1
   id: blocks_message_debug
   parameters:
@@ -352,7 +352,7 @@ blocks:
     bus_structure: null
     coordinate: [86, 322]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: blocks_multiply_const_vxx_0
   id: blocks_multiply_const_vxx
   parameters:
@@ -406,7 +406,7 @@ blocks:
     bus_structure: null
     coordinate: [329, 306]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: blocks_socket_pdu_0
   id: blocks_socket_pdu
   parameters:
@@ -507,7 +507,7 @@ blocks:
     bus_structure: null
     coordinate: [1779, 370]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: freq_xlating_fft_filter_ccc_0
   id: freq_xlating_fft_filter_ccc
   parameters:
@@ -687,9 +687,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1348, 222]
+    coordinate: [1342, 289]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: port
   id: parameter
   parameters:
@@ -946,7 +946,7 @@ blocks:
     bus_structure: null
     coordinate: [2197, 591]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: qtgui_time_sink_x_2
   id: qtgui_time_sink_x
   parameters:
@@ -1043,7 +1043,7 @@ blocks:
     bus_structure: null
     coordinate: [2199, 489]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: qtgui_time_sink_x_2_0_0
   id: qtgui_time_sink_x
   parameters:
@@ -1637,7 +1637,7 @@ blocks:
     comment: ''
     maxoutbuf: '0'
     minoutbuf: '0'
-    packlen: '13'
+    packlen: '8'
     sync: access_code
     threshold: '1'
   states:
@@ -1922,7 +1922,7 @@ blocks:
     bus_structure: null
     coordinate: [2193, 344]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: uhd_usrp_source_0
   id: uhd_usrp_source
   parameters:
@@ -2345,6 +2345,7 @@ connections:
 - [digital_binary_slicer_fb_0, '0', satellites_sync_to_pdu_packed_0, '0']
 - [digital_clock_recovery_mm_xx_0, '0', digital_binary_slicer_fb_0, '0']
 - [digital_clock_recovery_mm_xx_0, '0', qtgui_time_sink_x_2_1, '0']
+- [digital_gfsk_mod_0, '0', analog_quadrature_demod_cf_0, '0']
 - [digital_gfsk_mod_0, '0', qtgui_freq_sink_x_1, '0']
 - [digital_gfsk_mod_0, '0', qtgui_time_sink_x_2, '0']
 - [digital_gfsk_mod_0, '0', uhd_usrp_sink_0, '0']
@@ -2356,6 +2357,7 @@ connections:
 - [pduadd_crc16_0, out, satellites_pn9_scrambler_0, in]
 - [pduadd_crc16_0, out, zeromq_pub_msg_sink_0, in]
 - [pduadd_pdu_head_tail_0, out, blocks_message_debug_0, print_pdu]
+- [pduadd_pdu_head_tail_0, out, blocks_pdu_to_tagged_stream_0_0, pdus]
 - [pduadd_pdu_head_tail_0, out, pduadd_usrp_pad_0, in]
 - [pduadd_pdu_head_tail_0_0, out, pduadd_pdu_head_tail_0, in]
 - [pduadd_usrp_pad_0, out, blocks_pdu_to_tagged_stream_0_0, pdus]
