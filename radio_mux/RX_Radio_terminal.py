@@ -17,7 +17,7 @@ print("socket bind success")
 while True:
     in_str = input()
     print("send", in_str)
-    socket.send(in_str)		#send data to radio_terminal program 
+    socket.send_string(in_str)		#send data to radio_terminal program 
 #after running this script, it will say "socket bind success", then press type in the command line, then press enter, it will get muxed to the radio terminal
 
 
